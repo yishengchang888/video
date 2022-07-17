@@ -1,22 +1,23 @@
-
-from video.yt_concate.steps.get_video_list import GetVideoList
-from video.yt_concate.steps.step import StepException
-
+from pipeline.pipeline import Pipeline
+from pipeline.steps.get_video_list import GetVideoList
 
 CHANNEL_ID = 'UC1Oq-B1TgUzMTz0zSb8ZDrA'
-steps = [
-    GetVideoList(),
-]
 
-for step in steps:
-    try:
-        step.process()
-    except StepException as e:
-        print('Exception happened: ', e)
-        break
-    
-    
 
-#video_list = get_all_video_in_channel(CHANNEL_ID)
-#print(len(video_list))
+def main():
+    inputs = {
+        'channel_id': CHANNEL_ID
+    }
+    steps = [
+        GetVideoList(),
+    ]
 
+    p = Pipeline(steps)
+    print(p.run(inputs))
+
+
+if __name__ == '__main__':
+    main()
+
+# video_list = get_all_video_in_channel(CHANNEL_ID)
+# print(len(video_list))
